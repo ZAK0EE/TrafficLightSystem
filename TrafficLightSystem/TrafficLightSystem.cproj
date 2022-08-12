@@ -123,15 +123,32 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\dio\dio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\dio\dio.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MCAL\timer\timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\timer\timer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\utilities\bit_manipulation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\utilities\datatypes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\utilities\memorymap.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MCAL" />
+    <Folder Include="MCAL\dio" />
+    <Folder Include="MCAL\utilities" />
     <Folder Include="MCAL\timer" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

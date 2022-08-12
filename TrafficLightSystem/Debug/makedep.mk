@@ -4,5 +4,7 @@
 
 main.c
 
+MCAL\dio\dio.c
+
 MCAL\timer\timer.c
 

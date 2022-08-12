@@ -21,6 +21,7 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
+#include "../utilities/datatypes.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
@@ -54,16 +55,16 @@
 #define TIMER2_PRESCALER_1024 7
 
 
-void timer0(uint8_t prescaler, uint8_t ticks, void (*f)());
-void timer1(uint8_t prescaler, uint16_t ticks, void (*f)());
-void timer2(uint8_t prescaler, uint8_t ticks, void (*f)());
-void timer0_stop();
-void timer1_stop();
-void timer2_stop();
+ERROR_H timer0(uint8_t prescaler, uint8_t ticks, void (*f)());
+ERROR_H timer1(uint8_t prescaler, uint16_t ticks, void (*f)());
+ERROR_H timer2(uint8_t prescaler, uint8_t ticks, void (*f)());
+ERROR_H timer0_stop();
+ERROR_H timer1_stop();
+ERROR_H timer2_stop();
 
-void wait0(uint8_t prescaler, uint8_t ticks);
-void wait1(uint8_t prescaler, uint16_t ticks);
-void wait2(uint8_t prescaler, uint8_t ticks);
+ERROR_H wait0(uint8_t prescaler, uint8_t ticks);
+ERROR_H wait1(uint8_t prescaler, uint16_t ticks);
+ERROR_H wait2(uint8_t prescaler, uint8_t ticks);
 
 
 #endif /* TIMER_H_ */
