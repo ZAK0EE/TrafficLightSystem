@@ -22,7 +22,6 @@
 #define TIMER_H_
 
 #include "../utilities/datatypes.h"
-#include <avr/io.h>
 #include <avr/interrupt.h>
 
 // Comment/delete those lines to disable interrupt definition for that timer
