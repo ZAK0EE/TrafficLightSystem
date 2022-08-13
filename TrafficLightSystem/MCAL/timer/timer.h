@@ -8,7 +8,7 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-#include "../utilities/datatypes.h"
+#include "utilities/datatypes.h"
 #include <avr/interrupt.h>
 
 // Comment/delete those lines to disable interrupt definition for that timer
