@@ -157,6 +157,7 @@
     <Folder Include="MCAL\interrupt" />
     <Folder Include="MCAL\utilities" />
     <Folder Include="MCAL\timer" />
+    <Folder Include="HAL" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
