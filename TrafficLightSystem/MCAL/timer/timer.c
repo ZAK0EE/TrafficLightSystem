@@ -37,8 +37,8 @@ ERROR_H timer0(uint8_t prescaler, uint8_t ticks, void (*f)()) {
 }
 
 ERROR_H timer0_stop() {
-	TCCR0 = 0;
-	return OK;							// set prescaler to none, disabling timer
+	TCCR0 = 0;							// set prescaler to none, disabling timer
+	return OK;
 }
 
 #ifdef ENABLE_TIMER0
@@ -96,13 +96,13 @@ ERROR_H wait0(uint8_t prescaler, uint8_t ticks) {
 	if (ticks == 0)
 	return ERROR;						// return if no ticks to count
 	TIMSK &= ~(1 << OCIE0);				// disable compare interrupt
-	OCR0 = ticks;					// set top value
+	OCR0 = ticks;						// set top value
 	TCCR0 = (1 << WGM01);				// set CTC mode
-	TCCR0 = prescaler;				// set prescaler
-	TCNT0 = 0;						// reset TCNT counter register
-	TIFR |= (1 << OCF0);			// reset compare flag
-	while(!(TIFR & (1 << OCF0)));	// wait till compare flag goes up
-	TCCR0 = 0;						// stop timer to save energy
+	TCCR0 = prescaler;					// set prescaler
+	TCNT0 = 0;							// reset TCNT counter register
+	TIFR |= (1 << OCF0);				// reset compare flag
+	while(!(TIFR & (1 << OCF0)));		// wait till compare flag goes up
+	TCCR0 = 0;							// stop timer to save energy
 	return OK;
 }
 
