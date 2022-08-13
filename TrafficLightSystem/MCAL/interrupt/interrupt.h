@@ -9,9 +9,9 @@
 #ifndef INTERRUPT_H_
 #define INTERRUPT_H_
 
-#include "../utilities/memorymap.h"
-#include "../utilities/bit_manipulation.h"
-#include "../utilities/datatypes.h"
+#include "utilities/memorymap.h"
+#include "utilities/bit_manipulation.h"
+#include "utilities/datatypes.h"
 
 
 #define INT_FALLING 0
