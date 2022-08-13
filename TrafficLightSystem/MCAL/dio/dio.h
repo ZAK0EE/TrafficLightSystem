@@ -13,9 +13,9 @@
 // all driver macros
 // all driver function prototype
 
-#include "../utilities/memorymap.h"
-#include "../utilities/datatypes.h"
-#include "../utilities/bit_manipulation.h"
+#include "utilities/memorymap.h"
+#include "utilities/datatypes.h"
+#include "utilities/bit_manipulation.h"
 
 #define PORT_A 'A'
 #define PORT_B 'B'
