@@ -16,6 +16,7 @@
 #define PED_BUTTON_PORT				PORTD
 #define PED_BUTTON_PIN				PIN2
 #define PED_BUTTON_TRIGGER			INT_FALLING
+#define PED_BUTTON_EXTI				EXT_INT_0
 
 ERROR_H Ped_Button_Init();
 ERROR_H Ped_Button_Enable();
