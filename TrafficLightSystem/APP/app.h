@@ -37,8 +37,6 @@ void TF_Init(uint8_t state);
 void TF_Next_State(void);
 
 
-void (*TF_states[4])(void);
-
 
 
 #endif /* APP_H_ */
