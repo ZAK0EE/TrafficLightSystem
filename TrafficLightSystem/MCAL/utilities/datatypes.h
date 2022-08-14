@@ -9,7 +9,7 @@
 #ifndef DATATYPES_H_
 #define DATATYPES_H_
 
-#define F_CPU 8000000UL
+#define F_CPU 1000000UL
 #include <stdint.h>
 
 typedef enum Error {OK, ERROR} ERROR_H;
