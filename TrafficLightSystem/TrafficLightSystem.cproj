@@ -122,6 +122,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="APP\app.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="APP\app.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\Ped_Button\Ped_Button.c">
       <SubType>compile</SubType>
     </Compile>
@@ -160,13 +166,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="HAL\Ped_Button" />
+    <Folder Include="HAL\" />
+    <Folder Include="HAL\Ped_Button\" />
     <Folder Include="MCAL" />
     <Folder Include="MCAL\dio" />
     <Folder Include="MCAL\interrupt" />
     <Folder Include="MCAL\utilities" />
     <Folder Include="MCAL\timer" />
-    <Folder Include="HAL" />
+    <Folder Include="APP" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
