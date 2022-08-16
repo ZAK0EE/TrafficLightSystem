@@ -2,7 +2,7 @@
  * TrafficLightSystem.c
  *
  * Created: 22/08/11 03:00:41 PM
- * Author : VGA
+ * Author : Ziad
  */ 
 #define F_CPU 1000000UL
 
@@ -12,9 +12,7 @@
 
 int main(void)
 {
-		sei();
-	Ped_Button_Init();
-	TF_Init(0);
+	TF_Init();
     while (1) 
     {
 
