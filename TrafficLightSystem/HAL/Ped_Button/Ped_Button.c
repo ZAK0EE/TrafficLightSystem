@@ -7,16 +7,16 @@
 
 #include "Ped_Button/Ped_Button.h"
 
-ERROR_H Ped_Button_Init()
+ERROR_H Ped_Button_Init(void (*callback)())
 {
-	Ped_Button_Enable();
+	Ped_Button_Enable(callback);
 	
 	return OK;
 }
-ERROR_H Ped_Button_Enable()
+ERROR_H Ped_Button_Enable(void (*callback)())
 {
 	DIO_init(PED_BUTTON_PORT, PED_BUTTON_PIN, IN);
-	Enable_INT0(PED_BUTTON_TRIGGER);
+	Enable_INT0(PED_BUTTON_TRIGGER, callback);
 	return OK;
 
 }
