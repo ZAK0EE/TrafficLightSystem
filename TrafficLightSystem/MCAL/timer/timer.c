@@ -82,7 +82,7 @@ ISR(TIMER2_COMP_vect) {
 
 ERROR_H wait0(uint8_t prescaler, uint8_t ticks) {
 	if (ticks == 0)
-	return ERROR;						// return if no ticks to count
+		return ERROR;					// return if no ticks to count
 	TIMSK &= ~(1 << OCIE0);				// disable compare interrupt
 	OCR0 = ticks;						// set top value
 	TCCR0 = (1 << WGM01);				// set CTC mode
@@ -96,7 +96,7 @@ ERROR_H wait0(uint8_t prescaler, uint8_t ticks) {
 
 ERROR_H wait1(uint8_t prescaler, uint16_t ticks) {
 	if (ticks == 0)
-	return ERROR;
+		return ERROR;
 	TIMSK &= ~(1 << OCIE1A);
 	OCR1A = ticks;
 	TCCR1A = 0;
