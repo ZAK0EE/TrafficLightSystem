@@ -12,6 +12,7 @@
 
 int main(void)
 {
+	// Start traffic light system
 	TF_Init();
     while (1) 
     {
