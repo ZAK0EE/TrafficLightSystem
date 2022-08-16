@@ -23,6 +23,10 @@
 #define TF_PEDLED_Y			PIN1
 #define TF_PEDLED_R			PIN2
 
+// Required ticks for timers
+#define _5SEC_TICKS 4883U
+#define BLINK_TICKS 255U
+
 // States indices
 #define PX_CG_NY 0
 #define PG_CY_NR 1
@@ -31,9 +35,18 @@
 
 #define PED EXT_INT_0
 
+/* Use this function to initialize the traffic light system
+return: an error or OK
+*/
+ERROR_H TF_Init();
 
-void TF_Init(uint8_t state);
+/* Use this function to goto a specific state
+state: you can choose the state from States indices
+return: an error or OK
+*/
+ERROR_H TF_Goto_State(uint8_t state);
 
+/* Use this function to goto next state */
 void TF_Next_State(void);
 
 

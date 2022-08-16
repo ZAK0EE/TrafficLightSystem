@@ -7,20 +7,25 @@
 
 #include "app.h"
 
-// States
+// States declarations
 void TF_PX_CG_NY();
 void TF_PG_CY_NR();
 void TF_PX_CR_NY();
 void TF_PR_CY_NG();
 
+// An array of states pointers
 void (*TF_states[4])(void)= {TF_PX_CG_NY, TF_PG_CY_NR, TF_PX_CR_NY, TF_PR_CY_NG};
 
+// The current state index
 uint8_t TF_State_Idx = 0;
 
-ISR(PED_BUTTON_EXTI)
+void Ped_Button_Interrupt()
 {
+	// Disabling the button until next state
 	Ped_Button_Disable();
 	uint8_t state = 0;
+	
+	// Lookup table for the ped button special cases
 	switch(TF_State_Idx)
 	{
 		case PX_CG_NY:
@@ -35,13 +40,21 @@ ISR(PED_BUTTON_EXTI)
 			break;
 	}
 	
-	TF_Init(state);
+	TF_Goto_State(state);
 }
-void TF_Init(uint8_t state)
+
+// Yellow Led blink callback function for the blink timer
+void TF_Y_Blink(void)
 {
-	timer0_stop();
-	timer1_stop();
+	DIO_toggle(TF_CARLED_PORT, TF_CARLED_Y);
+	DIO_toggle(TF_PEDLED_PORT, TF_PEDLED_Y);
+}
+
+ERROR_H TF_Init()
+{
+	Ped_Button_Init(Ped_Button_Interrupt);
 	
+	// Init the traffic and PED leds
 	DIO_init(TF_CARLED_PORT, TF_CARLED_G, OUT);
 	DIO_init(TF_CARLED_PORT, TF_CARLED_Y, OUT);
 	DIO_init(TF_CARLED_PORT, TF_CARLED_R, OUT);
@@ -49,30 +62,48 @@ void TF_Init(uint8_t state)
 	DIO_init(TF_PEDLED_PORT, TF_PEDLED_G, OUT);
 	DIO_init(TF_PEDLED_PORT, TF_PEDLED_Y, OUT);
 	DIO_init(TF_PEDLED_PORT, TF_PEDLED_R, OUT);
-	
-	TF_State_Idx = state;
-	TF_states[TF_State_Idx]();
-	timer1(TIMER1_PRESCALER_1024, 4883U, TF_Next_State);
+		
+	TF_Goto_State(0);
+	return OK;
 	
 }
 
-void TF_Y_Blink(void)
+ERROR_H TF_Goto_State(uint8_t state)
 {
-	DIO_toggle(TF_CARLED_PORT, TF_CARLED_Y);
-	DIO_toggle(TF_PEDLED_PORT, TF_PEDLED_Y);
+	// Reset Timers
+	timer0_stop();
+	timer1_stop();
+	
+	// Set the current state
+	TF_State_Idx = state;
+	// Call current state
+	TF_states[TF_State_Idx]();
+	
+	// five seconds timer for each state before moving to the next
+	timer1(TIMER1_PRESCALER_1024, _5SEC_TICKS, TF_Next_State);
+	
+	return OK;
 }
+
+
 void TF_Next_State(void)
 {
-	
+	// Reset the blinking timer
 	timer0_stop();
-	TF_State_Idx = (TF_State_Idx + 1) % (sizeof(TF_states) /  sizeof(TF_states[0]));
-	TF_states[TF_State_Idx]();
-
 	
-	Ped_Button_Enable();
-
+	// Get number of states
+	int statesSize = (sizeof(TF_states) /  sizeof(TF_states[0]));
+	
+	// Add one to the current state index with limitation to the array size
+	TF_State_Idx = (TF_State_Idx + 1) % statesSize;
+	
+	TF_states[TF_State_Idx]();
+	
+	Ped_Button_Enable(Ped_Button_Interrupt);
+	
 }
 
+/***********************************States definitions***********************************/
 void TF_PX_CG_NY()
 {
 	DIO_write(TF_CARLED_PORT, TF_CARLED_G, HIGH);
@@ -97,7 +128,7 @@ void TF_PG_CY_NR()
 	DIO_write(TF_PEDLED_PORT, TF_PEDLED_R, LOW);
 	
 	// Blink timer
-	timer0(TIMER0_PRESCALER_1024, 255U, TF_Y_Blink);
+	timer0(TIMER0_PRESCALER_1024, BLINK_TICKS, TF_Y_Blink);
 
 }
 void TF_PX_CR_NY()
@@ -121,5 +152,5 @@ void TF_PR_CY_NG()
 	DIO_write(TF_PEDLED_PORT, TF_PEDLED_R, LOW);
 	
 	// Blink timer
-	timer0(TIMER0_PRESCALER_1024, 255U, TF_Y_Blink);
+	timer0(TIMER0_PRESCALER_1024, BLINK_TICKS, TF_Y_Blink);
 }
