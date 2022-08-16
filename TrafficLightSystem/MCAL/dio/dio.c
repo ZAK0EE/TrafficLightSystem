@@ -8,7 +8,7 @@
 #include "dio.h"
 
 
-ERROR_H DIO_init(uint8_t portNumber, uint8_t pinNumber, uint8_t direction) // Initail dio direction
+ERROR_H DIO_init(uint8_t portNumber, uint8_t pinNumber, uint8_t direction) // initialize dio direction
 {
 	if (direction == OUT)
 	{
